@@ -1,0 +1,240 @@
+
+/*-------------------------
+	Dropbox Element
+--------------------------*/
+
+
+
+#dropbox{
+	/*background:url('../img/background_tile_3.jpg');
+	border-radius:3px;
+	position: relative;
+	margin:80px auto 90px;*/
+	border: 1px solid #999;
+	width: 70%;
+	min-height: 200px;
+	margin: 0 auto;
+	overflow: hidden;
+	padding: 10px;
+	/*padding-bottom: 40px;*/
+  /*width: 990px;
+	box-shadow:0 0 4px rgba(0,0,0,0.3) inset,0 -3px 2px rgba(0,0,0,0.1);*/
+}
+
+/*#dropbox:before{
+	display: block;
+	content:'';
+	height:4px;
+	width:100%;
+	background:url('../img/blue_line.jpg');
+	position: absolute;
+	top:0;
+	left:0;
+	box-shadow:0 2px 2px rgba(0,0,0,0.4);
+}*/
+
+#dropbox .message{
+	font-size: 11px;
+	text-align: center;
+	/*padding-top:100px;*/
+	display: block;
+	
+	width: 200px;
+	height: 80px;
+	border: 2px dotted gray;
+	margin: 75px auto 0 auto;
+	line-height: 80px;	
+}
+
+#dropbox .message i{
+	color:#ccc;
+	font-size:10px;
+}
+
+/*#dropbox:before{
+	border-radius:3px 3px 0 0;
+}*/
+
+
+/*-------------------------
+	Image Previews
+--------------------------*/
+
+
+#dropbox .preview{
+	/*width:245px;
+	height: 210px;
+	width: 200px;
+	height: 170px;*/
+	/****************/
+	/*padding: 5px;*/
+	/*border: 2px dotted #FFF;*/
+	/****************/
+	/*margin: 25px 0 0 35px;*/
+	/*margin: 20px 0 0 30px;*/
+	float: left;
+	margin: 0 0 10px 0;
+	position: relative;
+}
+
+#dropbox .preview:hover{
+	cursor: move;
+}
+
+#dropbox .preview img{
+	/*max-width: 240px;
+	max-height:180px;*/
+	/*max-width: 245px;
+	max-height: 185px;
+	max-width: 200px;*/
+	width: auto;
+	max-width: 100%;
+	/*max-height: 170px;*/
+	/*height: 170px;*/
+	height: auto;
+	display: block;
+	/*border:3px solid #fff;
+	box-shadow:0 0 2px #000;*/
+}
+
+#dropbox .imageHolder{
+	display: inline-block;
+	position:relative;
+}
+
+#dropbox .uploaded{
+	position: absolute;
+	top:0;
+	left:0;
+	height:100%;
+	width:100%;
+	background: url('../img/done.png') no-repeat center center rgba(255,255,255,0.5);
+	display: none;
+}
+
+#dropbox .preview.done .uploaded{
+	display: block;
+}
+
+/*#dropbox .preview.done:hover .uploaded{
+	display: none;
+	border: 5px solid yellow;
+}
+*/
+
+
+/*-------------------------
+	Progress Bars
+--------------------------*/
+
+
+
+#dropbox .progressHolder{
+	position: absolute;
+	background-color:#252f38;
+	height:15px;
+	/*width:100%;
+	left:0;
+	bottom: 0;
+	width: 200px;*/
+	width: 100%;
+	margin: 0 auto;
+	bottom: -1px;
+	box-shadow:0 0 2px #000;
+}
+
+#dropbox .progress{
+	background-color:#2586d0;
+	position: absolute;
+	height:100%;
+	left:0;
+	width:0;
+	
+	box-shadow: 0 0 1px rgba(255, 255, 255, 0.4) inset;
+	
+	-moz-transition:0.25s;
+	-webkit-transition:0.25s;
+	-o-transition:0.25s;
+	transition:0.25s;
+}
+
+#dropbox .preview.done .progress{
+	width:100% !important;
+}
+
+
+/*-------------------------
+					Options
+--------------------------*/
+
+#dropbox .preview .options{
+	position: absolute;
+	top:0;
+	left:0;
+	height:100%;
+	width:100%;
+	background: rgba(0, 0, 0, 0.5);
+	display: none;
+}
+
+#dropbox .preview:hover .options{
+	display: block;
+}
+
+#dropbox .preview .options .buttons{
+	display: block;
+	margin-top: 15%;
+	text-align: center;
+	/*border: 1px solid yellow;*/
+}
+
+#dropbox .preview .options .buttons button:hover{
+	background-color: #CF9;
+}
+
+#dropbox .mainPicture{
+	border: 2px dotted red;
+	/*background-color: red;*/
+}
+
+#dropbox .dimensionsPicture{
+	border: 2px dotted blue;
+	/*background-color: blue;*/
+}
+
+/*-------------------------
+popupWindow for picture info
+--------------------------*/
+
+div.popupWindow{
+	position: fixed;
+	width: 400px;
+	height: 120px;
+	top: 50%;
+	left: 50%;
+	margin-left: -180px; /* 1/2 width aprox. */
+	margin-top: -125px;  /* 1/2 height aprox. */
+	background-color: #FFF;
+	padding: 20px;
+	border: 1px solid #000;
+	display: none;
+	z-index: 100;
+}
+
+div.popupWindow button#cancel{
+	float: left;
+}
+
+div.popupWindow button#saveInfo{
+	float: right;
+}
+
+div.popupWindow label{
+	width: auto;
+	padding: 0;
+}
+
+div.popupWindow h1{
+	font-size: 1.2em;
+}
+

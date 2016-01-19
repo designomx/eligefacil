@@ -1,0 +1,56 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/*************************************************************************************/
+
+div#comparacion{
+	margin: 0 auto;
+}
+
+div.plan{
+	float: left;
+	width: 330px;
+	height: 100%;
+	background-color: #F7F4ED;
+}
+
+div.plan.bg-darker{
+	background-color: #E0DDD6;
+}
+
+div.plan div.datos-plan div.empresa,
+div.sugerido.label{
+	width: 70%;
+}
+
+div.plan div.datos-principales{
+	padding: 40px;
+	/*border: 1px solid magenta;*/
+}
+
+div.plan div.dato{
+	font-size: 1.4em;
+	font-weight: bold;
+}
+
+div.plan div.datos-adicionales{
+	font-size: 1em;
+	padding: 15px;
+	padding-bottom: 80px;
+	/*border: 1px solid blue;*/
+}
+
+div.plan div.datos-adicionales h2{
+	font-size: 1.5em;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+div.addthis_sharing_toolbox{
+	position: absolute;
+	bottom: 15px;
+	left: 15px;
+}
+
+/*************************************************************************************/
+

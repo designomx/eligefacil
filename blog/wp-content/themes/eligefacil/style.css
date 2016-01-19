@@ -1,0 +1,181 @@
+/**
+  Theme Name: Elige Fácil 1.0
+  Theme URI: http://www.siftware.co.uk/wordpress-naked
+  Version: 1.1
+  Author: Siftware
+  Author URI: http://www.siftware.co.uk
+  Tags: simple, clean, fixed width, widget-ready, widgets, right sidebar, two columns, valid XHTML, valid CSS, blank-slate
+  Licence: GPL
+  
+  Description: A theme created with developers in mind which should enable rapid WP reskinning. The CSS is minimal but consistent cross-browser, there are a couple of SEO tweaks and the page navigation works sensibly but can modified easily.
+
+  The CSS that follows is what I feel is the bare minimum of styling for a two column, fixed width and centred layout that should be
+  consistent in 'modern browsers'
+*/
+
+/*************************************************************************************/
+/* DIRECTIVOS DE RENDEREO DE LAS FUENTES */
+
+/* ChaletComprime-MilanSixty */
+
+@font-face {
+	font-family: 'ChaletComprime-MilanSixty';
+	src: url('fonts/ChaletComprime-MilanSixty/ChaletComprime-MilanSixty.eot'); /* IE9 Compat Modes */
+	src: url('fonts/ChaletComprime-MilanSixty/ChaletComprime-MilanSixty.woff') format('woff'), /* Pretty Modern Browsers */
+			 url('fonts/ChaletComprime-MilanSixty/ChaletComprime-MilanSixty.ttf')  format('truetype'), /* Safari, Android, iOS */
+			 url('fonts/ChaletComprime-MilanSixty/ChaletComprime-MilanSixty.svg#ChaletComprime-MilanSixty') format('svg'); /* Legacy iOS */
+}
+
+/*************************************************************************************/
+
+html{
+	height: 100%;
+}
+
+body{
+	/*min-width: 1100px;*/
+	height: 100%;
+	margin: 0;
+	padding; 0;
+	font-family: 'Lato', sans-serif, Verdana, Geneva, sans-serif;
+	font-size: 15px;
+	font-weight: normal;
+	font-style: normal;
+	text-align: left;
+	color: #000;
+}
+
+img{
+	max-width: 100%;
+	height: auto;
+}
+
+iframe{
+	max-width: 100%;
+}
+
+
+/*************************************************************************************/
+
+/*div#canvas{
+	padding-top: 50px;
+}*/
+
+header{
+	text-align: center;
+}
+
+article{
+  color: #989898;
+}
+
+div.postTitle{
+	display: inline-block;
+	font-size: 1.5em;
+	font-weight: bold;
+	text-transform: uppercase;
+	letter-spacing: 3px;
+	color: white;
+	text-align: center;
+	background-color: #FD682D;
+	padding: 10px 20px;
+	margin-bottom: 25px;
+}
+
+div.postDate{
+	font-size: 0.8em;
+	padding-bottom: 5px;
+	margin-bottom: 40px;
+	border-bottom: 1px solid #989898;
+}
+
+section.post{
+	letter-spacing: 1.5px;
+}
+
+div#sharing{
+	height: 40px;
+	margin: 30px 0;
+	/*border: 1px solid blue;*/
+}
+
+span.diamond{
+	font-size: 0.6em;
+}
+
+/*div#relatedPosts{
+	border: 1px solid magenta;
+}
+
+div#relatedPosts h2{
+	letter-spacing: 1.5px;
+	text-align: center;	
+}
+
+div#relatedPosts a:nth-of-type(4) > div.relatedPost{
+	margin-right: 0;
+}
+
+div.relatedPost{
+	float: left;
+	width: 23%;
+	height: 200px;
+	overflow: hidden;
+	background-color: #F9F9F9;
+	margin-right: 20px;
+	margin-bottom: 20px;
+}
+
+div.relatedPost img{
+	width: 100%;
+	height: auto;
+}*/
+
+/*************************************************************************************/
+/* AUXILIAR STYLES */
+
+#clearfix,
+.clearfix{
+	clear: both !important;
+	float: none !important;
+	width: 0 !important;
+	height: 0 !important;
+}
+
+/*************************************************************************************/
+
+/** normally hidden but will appear when css disabled */
+.skip,
+.noCss {
+  position: absolute;
+  left: -9999px;
+}
+
+/**
+  theme requirements as per 
+  http://codex.wordpress.org/CSS
+*/
+.aligncenter,
+div.aligncenter {
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+}
+
+.alignleft {
+   float: left;
+}
+
+.alignright {
+   float: right;
+}
+
+
+@media only screen and (max-device-width : 667px), (max-width : 667px) {
+	
+	span.diamond{
+		display: none;
+	}
+	
+}
+

@@ -1,0 +1,144 @@
+@charset "UTF-8";
+
+/* Blog-Header */
+
+#blog-header{
+	width: 85%;
+	max-width: 1081px;
+	margin: 0 auto;
+	margin-bottom: 20px;	
+	/*border: 1px solid magenta;*/
+}
+
+.serviciosott{
+	float: right;
+	margin-right: 21px;
+}
+
+.categorias {
+	float: left;
+	margin-top: 17px;
+}
+
+
+/* Blog Posts */
+
+#blog {
+	width: 85%;
+	max-width: 1081px;
+	margin: 0 auto;
+	/*border: 1px solid magenta;*/
+}
+
+.post {
+	float:left;
+	/*max-width:250px;*/
+	/*max-height:250px;*/
+	width:250px;
+	height:250px;
+	position:relative;
+	overflow:hidden;
+	margin-right: 20px;
+	margin-bottom: 20px;
+	display:inline-block;
+	border-top:medium:#FFFFFF;
+
+}
+
+.post.related{
+	max-width: 240px;		
+}
+
+/*div#relatedPosts a:nth-of-type(5) > .post.related,
+div#relatedPosts a:nth-of-type(10) > .post.related,
+div#relatedPosts a:nth-of-type(15) > .post.related,
+div#relatedPosts a:nth-of-type(20) > .post.related,
+div#relatedPosts a:nth-of-type(25) > .post.related,
+div#relatedPosts a:nth-of-type(30) > .post.related{
+	margin-right: 0;
+}*/
+
+.post .storytitle {
+	position: absolute;
+	width: 100%;
+	height: 50px;
+	bottom: 0;
+	font-size: 1.5em;
+	line-height: 50px;
+	color: white;
+	text-align: center;
+	background-color: rgba(253, 104, 45, 0.6);
+	border-top: 6px solid #D34127;
+}
+
+.post:hover > .storytitle{
+	background-color: #FF671B;
+}
+
+.post img{
+	width:100%;
+	height:auto;
+}
+
+
+div#backLink{
+	text-align: right;
+}
+
+div#backLink a{
+	font-size: 1.2em;
+	font-weight: bold;
+	text-transform: uppercase;
+	letter-spacing: 1.5px;	
+}
+
+/*************************************************************************************/
+/* RELATED POSTS */
+
+div#relatedPosts h2{
+	letter-spacing: 1.5px;
+	text-align: center;
+	margin-bottom: 30px;
+	margin-top: 20px;	
+}
+
+div#relatedPosts .post{
+	width: 235px;
+	height: 235px;
+}
+
+
+
+/*************************************************************************************/
+
+
+@media only screen and (max-device-width : 667px), (max-width : 667px) {
+
+	#blog-header{
+		width: 100%;
+	}
+	
+	#blog,
+	#relatedPosts{
+		text-align: center;
+	}
+	
+	.post{
+		float: none;
+	}
+
+}
+
+@media only screen and (max-device-width : 400px), (max-width : 400px) {
+
+	.serviciosott{
+		float: none;
+		margin: 0;
+		text-align: center;
+	}
+
+	.serviciosott img{
+		width: 100%;
+	}
+
+}
