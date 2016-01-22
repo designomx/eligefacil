@@ -19,16 +19,21 @@ require 'Templates/phpHeadingTemplate.php';
 	define(TEL_MOVIL, 1);
 	//$_POST['id_estado'] = 9; //Distrito Federal.
 	//$_POST['servicios'] = array(TEL_MOVIL);
-	$cantidadcargadas = (int)$_POST['cantidadcargadas'];
+	$_SESSION['cantidadcargadas'] = (int)$_POST['cantidadcargadas'];
 	
 	$_POST['id_estado'] = $_SESSION['id_estado'];
 	$_POST['servicios'] = $_SESSION['servicios'];
-	
 
 
-	$query_planes = sprintf("SELECT id_plan, nombre, (select nombre from empresas where empresas.id_empresa = planes.id_empresa) as empresa, (select codigo_color from empresas where empresas.id_empresa = planes.id_empresa) as empresa_color, precio, dato_principal_1, id_tipoDato_principal_1, dato_principal_2, id_tipoDato_principal_2, dato_principal_3, id_tipoDato_principal_3, dato_principal_4, id_tipoDato_principal_4, mas_datos, visible FROM planes WHERE id_plan in(select id_plan from cobertura where id_estado = %s) AND id_plan in( SELECT id_plan FROM planes_tipoServicios WHERE id_tipoServicio IN (%s) AND id_plan NOT IN(SELECT id_plan FROM planes_tipoServicios WHERE id_tipoServicio NOT IN (%s)) AND visible=1 GROUP BY id_plan HAVING count(*) >= %s )  ORDER BY precio ASC limit ".$cantidadcargadas.",10", GetSQLValueString($_POST['id_estado'], "int"), implode(", ", $_POST['servicios']), implode(", ", $_POST['servicios']), count($_POST['servicios']));
+	$query_planes = sprintf("SELECT id_plan, nombre, (select nombre from empresas where empresas.id_empresa = planes.id_empresa) as empresa, (select codigo_color from empresas where empresas.id_empresa = planes.id_empresa) as empresa_color, precio, dato_principal_1, id_tipoDato_principal_1, dato_principal_2, id_tipoDato_principal_2, dato_principal_3, id_tipoDato_principal_3, dato_principal_4, id_tipoDato_principal_4, mas_datos, visible FROM planes WHERE id_plan in(select id_plan from cobertura where id_estado = %s) AND id_plan in( SELECT id_plan FROM planes_tipoServicios WHERE id_tipoServicio IN (%s) AND id_plan NOT IN(SELECT id_plan FROM planes_tipoServicios WHERE id_tipoServicio NOT IN (%s)) AND visible=1 GROUP BY id_plan HAVING count(*) >= %s )  ORDER BY precio ASC limit ".$_SESSION['cantidadcargadas'].",10", GetSQLValueString($_POST['id_estado'], "int"), implode(", ", $_POST['servicios']), implode(", ", $_POST['servicios']), count($_POST['servicios']));
 	$planes = mysql_query($query_planes, $dbConn) or die(mysql_error());
-	
+	$totalRows_planes = mysql_num_rows($planes);
+	$_SESSION['totalRows_planes']=$totalRows_planes;
+
+	$query_priceMax=sprintf("SELECT MAX(precio) FROM planes WHERE id_plan in(select id_plan from cobertura where id_estado = %s) AND id_plan in( SELECT id_plan FROM planes_tipoServicios WHERE id_tipoServicio IN (%s) AND id_plan NOT IN(SELECT id_plan FROM planes_tipoServicios WHERE id_tipoServicio NOT IN (%s)) AND visible=1 GROUP BY id_plan HAVING count(*) >= %s )", GetSQLValueString($_POST['id_estado'], "int"), implode(", ", $_POST['servicios']), implode(", ", $_POST['servicios']), count($_POST['servicios']));
+	$resultadoQueryPriceMax=mysql_query($query_priceMax, $dbConn) or die(mysql_error());
+	$_SESSION['priceMax']= mysql_fetch_assoc($resultadoQueryPriceMax);
+	//$_SESSION['priceMax']=1999;
 	while($row_planes = mysql_fetch_assoc($planes)){
 
 		createPlan($row_planes, $i, $dbConn);

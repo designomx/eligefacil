@@ -1,5 +1,4 @@
 <?php 
-session_start();
 require 'Templates/phpHeadingTemplate.php';
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
@@ -27,18 +26,8 @@ if(!isset($_POST['id_estado'])){
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
-
-
-//unset($_SESSION["cantidadcargadas"]); /* SI ACTUALIZAMOS DEBEMOS PONER LA CUENTA A 0 */
-//unset($_SESSION);
-//enviar datos a scroll.php
-
-$_SESSION["id_estado"]=$_POST['id_estado']; 
-$_SESSION["servicios"]=$_POST['servicios'];
-$_SESSION['totalRows_planes']=1;
   
 function createPlan($plan, $num, $dbConn, $sugerido){
-
 
 	$query_redesSociales = sprintf("SELECT * FROM planes_redesSociales WHERE id_plan=%s", GetSQLValueString($plan['id_plan'], "int"));
 	$redesSociales = mysql_query($query_redesSociales, $dbConn) or die(mysql_error());
@@ -176,10 +165,9 @@ mysql_select_db($database, $dbConn);
 //echo "id_servicios = |" . implode(", ", $_POST['servicios']) . "|";
 
 /* Obtiene todos los planes que corresponden con los parámetros de filtrado de la barra rápida */
-$query_planes = sprintf("SELECT id_plan, nombre, (select nombre from empresas where empresas.id_empresa = planes.id_empresa) as empresa, (select codigo_color from empresas where empresas.id_empresa = planes.id_empresa) as empresa_color, precio, dato_principal_1, id_tipoDato_principal_1, dato_principal_2, id_tipoDato_principal_2, dato_principal_3, id_tipoDato_principal_3, dato_principal_4, id_tipoDato_principal_4, mas_datos, visible FROM planes WHERE id_plan in(select id_plan from cobertura where id_estado = %s) AND id_plan in( SELECT id_plan FROM planes_tipoServicios WHERE id_tipoServicio IN (%s) AND id_plan NOT IN(SELECT id_plan FROM planes_tipoServicios WHERE id_tipoServicio NOT IN (%s)) AND visible=1 GROUP BY id_plan HAVING count(*) >= %s )  ORDER BY precio ASC limit 0,10", GetSQLValueString($_POST['id_estado'], "int"), implode(", ", $_POST['servicios']), implode(", ", $_POST['servicios']), count($_POST['servicios']));
+$query_planes = sprintf("SELECT id_plan, nombre, (select nombre from empresas where empresas.id_empresa = planes.id_empresa) as empresa, (select codigo_color from empresas where empresas.id_empresa = planes.id_empresa) as empresa_color, precio, dato_principal_1, id_tipoDato_principal_1, dato_principal_2, id_tipoDato_principal_2, dato_principal_3, id_tipoDato_principal_3, dato_principal_4, id_tipoDato_principal_4, mas_datos, visible FROM planes WHERE id_plan in(select id_plan from cobertura where id_estado = %s) AND id_plan in( SELECT id_plan FROM planes_tipoServicios WHERE id_tipoServicio IN (%s) AND id_plan NOT IN(SELECT id_plan FROM planes_tipoServicios WHERE id_tipoServicio NOT IN (%s)) AND visible=1 GROUP BY id_plan HAVING count(*) >= %s )  ORDER BY precio ASC", GetSQLValueString($_POST['id_estado'], "int"), implode(", ", $_POST['servicios']), implode(", ", $_POST['servicios']), count($_POST['servicios']));
 $planes = mysql_query($query_planes, $dbConn) or die(mysql_error());
 $totalRows_planes = mysql_num_rows($planes);
-
 
 //echo $query_planes;
 
@@ -211,95 +199,24 @@ require 'Templates/mainTemplate.php'; ?>
 <script type="text/javascript" charset="utf-8" src="JQuery/colorbox-1.6.3/jquery.colorbox-min.js"></script>
 <link rel="stylesheet" type="text/css" href="JQuery/colorbox-1.6.3/colorbox.css" />
 
-
-
-
-
-
-
-
-
-
-
-
-<script type="text/javascript" src="ajax/scroll.js"></script>
 <script type="text/javascript">
 
-
-
-var cantidadcargadas=0;
-function cargardatos(cantidad){
-    // Petición AJAX
-    
-    //$("#loader").html("<img src='loader2.gif'/>");
-                
-	$.ajax({
-		type: "POST",
-		url: "scroll.php",
-		data: { "cantidadcargadas" :  cantidad },
-		datatype: 'html',         
-		contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-		beforeSend: function () {
-            $("#loading").html("Procesando, espere por favor...<br><img src='images/loading.gif'/>");
-        },
-		success: function(data){
-	      //alert("entro");
-	      //alert(data),
-	      $('#loading').empty();
-	      if(data !=""){
-	      	//alert(cantidad),
-		      $('#results').append( data );
-		    
-          }  iniciar();
-	  }
-	});
-			                           
-}
-
-
-$(window).scroll(function(){
-        if ($(window).scrollTop() == $(document).height() - $(window).height()){
-                //alert('Scroll JS'),
-                cantidadcargadas+=10,
-                cargardatos(cantidadcargadas)
-        }                                       
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	$(document).ready(function() {
-		cargardatos(0);	
-});
+		
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	function iniciar(){
-		//var priceMax = getMaxVal(getPlansBeingDisplayed());
-		var priceMax = <? echo (int)$_SESSION['priceMax']; ?>;
+	
+		var priceMax = getMaxVal(getPlansBeingDisplayed());
+		
 		// Slider para filtrar por rango de precios.
-	    $( "div#filters-bar div#precio.slider" ).slider({
-	      range: true,
-	      min: 0,
-	      max: priceMax,
-	      values: [0, priceMax],
-	      slide: function( event, ui ) {
-	        $( "div#filters-bar #amount_precio" ).val( "$" + addCommas(ui.values[ 0 ]) + " - $" + addCommas(ui.values[ 1 ]) );
-	      }
-	    });
+    $( "div#filters-bar div#precio.slider" ).slider({
+      range: true,
+      min: 0,
+      max: priceMax,
+      values: [0, priceMax],
+      slide: function( event, ui ) {
+        $( "div#filters-bar #amount_precio" ).val( "$" + addCommas(ui.values[ 0 ]) + " - $" + addCommas(ui.values[ 1 ]) );
+      }
+    });
 
 		// Asignamos el rango inicial al slider.
 		$( "div#filters-bar #amount_precio" ).val( "$" + addCommas($( "div#filters-bar div#precio.slider" ).slider( "values", 0 )) + " - $" + addCommas($( "div#filters-bar div#precio.slider" ).slider( "values", 1 )) );
@@ -563,7 +480,7 @@ $(window).scroll(function(){
 		// Desplazamos la página hasta la barra rápida de filtrado.
 		$('html, body').animate({scrollTop: $("div#header").height() - $("div#quick-filter-bar").height()}, 2000);
 					
-	}//}); //$(document).ready(); function iniciar();
+	}); //$(document).ready();
 
 	$(window).load(function(){
 		
@@ -848,16 +765,52 @@ $(window).scroll(function(){
     
     	<?php
 			
+				if($totalRows_planes > 0){
+			
+						$i = 1;
+						
+						while($row_planes = mysql_fetch_assoc($planes)){
+
+							createPlan($row_planes, $i, $dbConn);
+							$i++;
+							
+							// Para obtener el plan sugerido para el plan actual.
+							$query_planSugerido = sprintf("SELECT id_plan, nombre, (select nombre from empresas where empresas.id_empresa = planes.id_empresa) as empresa, (select codigo_color from empresas where empresas.id_empresa = planes.id_empresa) as empresa_color, precio, dato_principal_1, id_tipoDato_principal_1, dato_principal_2, id_tipoDato_principal_2, dato_principal_3, id_tipoDato_principal_3, dato_principal_4, id_tipoDato_principal_4, mas_datos FROM planes WHERE id_plan in(select id_plan from cobertura where id_estado = %s) AND id_plan in(SELECT id_plan FROM planes_tipoServicios WHERE id_plan IN (SELECT id_plan FROM planes_tipoServicios WHERE id_tipoServicio IN (%s)) GROUP BY id_plan HAVING count(*) > %s ) AND ((precio < %s AND precio >= %s-100) OR (precio > %s AND precio <= %s+100)) ORDER BY precio ASC LIMIT 1", GetSQLValueString($_POST['id_estado'], "int"), implode(", ", $_POST['servicios']), count($_POST['servicios']), $row_planes['precio'], $row_planes['precio'], $row_planes['precio'], $row_planes['precio']);
+							$planSugerido = mysql_query($query_planSugerido, $dbConn) or die(mysql_error());
+							$row_planSugerido = mysql_fetch_assoc($planSugerido);
+							$totalRows_planSugerido = mysql_num_rows($planSugerido);
+						
+							//echo $query_planSugerido;
+							//echo "<br>RESULT: " . $totalRows_planSugerido;
+								
+							if($totalRows_planSugerido > 0){
+								
+								// Si el plan sugerido para el plan actual ya fue incluido previamente, no lo incluye de nuevo.
+								if(!in_array($row_planSugerido['id_plan'], $suggestedPlansIncluded)){
+									
+									array_push($suggestedPlansIncluded, $row_planSugerido['id_plan']);
+									
+									createPlan($row_planSugerido, $i, $dbConn, "sugerido");
+									$i++;
+								
+								}
+							}
+												
+						}//while
 				
+				}//if($totalRows_planes > 0)
+				else {
 				
+					echo "<div id='no-results'>No hay resultados que mostrar para la combinaci&oacute;n de servicios seleccionada.</div>";
+	
+				}
 				?>
        
-             
-
+       <div class="clearfix"></div>
            
     </div><!-- #results -->
-    <div id="loading" style="text-align:center"></div>
-	<?php createComparingBar(); ?>    
+    
+		<?php createComparingBar(); ?>    
     
     <div class="clearfix"></div>
   
