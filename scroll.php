@@ -30,10 +30,11 @@ require 'Templates/phpHeadingTemplate.php';
 	$totalRows_planes = mysql_num_rows($planes);
 	$_SESSION['totalRows_planes']=$totalRows_planes;
 
-	$query_priceMax=sprintf("SELECT MAX(precio) FROM planes WHERE id_plan in(select id_plan from cobertura where id_estado = %s) AND id_plan in( SELECT id_plan FROM planes_tipoServicios WHERE id_tipoServicio IN (%s) AND id_plan NOT IN(SELECT id_plan FROM planes_tipoServicios WHERE id_tipoServicio NOT IN (%s)) AND visible=1 GROUP BY id_plan HAVING count(*) >= %s )", GetSQLValueString($_POST['id_estado'], "int"), implode(", ", $_POST['servicios']), implode(", ", $_POST['servicios']), count($_POST['servicios']));
-	$resultadoQueryPriceMax=mysql_query($query_priceMax, $dbConn) or die(mysql_error());
-	$_SESSION['priceMax']= mysql_fetch_assoc($resultadoQueryPriceMax);
-	//$_SESSION['priceMax']=1999;
+	//$query_priceMax=sprintf("SELECT MAX(precio) FROM planes WHERE id_plan in(select id_plan from cobertura where id_estado = %s) AND id_plan in( SELECT id_plan FROM planes_tipoServicios WHERE id_tipoServicio IN (%s) AND id_plan NOT IN(SELECT id_plan FROM planes_tipoServicios WHERE id_tipoServicio NOT IN (%s)) AND visible=1 GROUP BY id_plan HAVING count(*) >= %s )  ORDER BY precio ASC limit ".$_SESSION['cantidadcargadas'].",10", GetSQLValueString($_POST['id_estado'], "int"), implode(", ", $_POST['servicios']), implode(", ", $_POST['servicios']), count($_POST['servicios']));
+	//$resultadoQueryPriceMax=mysql_query($query_priceMax, $dbConn) or die(mysql_error());
+	//$valor=mysql_fetch_object($resultadoQueryPriceMax);
+	//$_SESSION['priceMax']= mysql_fetch_assoc($resultadoQueryPriceMax);
+	$_SESSION['priceMax']= 1999;
 	while($row_planes = mysql_fetch_assoc($planes)){
 
 		createPlan($row_planes, $i, $dbConn);

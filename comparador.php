@@ -561,7 +561,7 @@ $(window).scroll(function(){
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 										
 		// Desplazamos la página hasta la barra rápida de filtrado.
-		$('html, body').animate({scrollTop: $("div#header").height() - $("div#quick-filter-bar").height()}, 2000);
+		//$('html, body').animate({scrollTop: $("div#header").height() - $("div#quick-filter-bar").height()}, 2000);
 					
 	}//}); //$(document).ready(); function iniciar();
 
